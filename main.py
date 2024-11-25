@@ -10,6 +10,7 @@ import pandas as pd
 from keras.utils import to_categorical
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
+import copy
 
 
 def zscore(data):
@@ -238,7 +239,7 @@ for fold, (traindata, validationdata) in enumerate(sfolder.split(ecga,labela)):
         validation(x,model,los_valid, acc_valid)
         if acc_valid[x]>=best_accuracy:
             matname = 'model_' + 'epoch' + str(x) + 'fold' + str(fold) + '.pkl'
-            best_model = model
+            best_model = copy.deepcopy(model)
             best_accuracy = acc_valid[x]
     torch.save(best_model, matname)
 
